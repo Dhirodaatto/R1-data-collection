@@ -1,6 +1,6 @@
 # R1-data-collection
 
-How to run file - for Sherman
+How to run file - for mac users
 
 1. Open up terminal in the folder where you have downloaded theses two files and run the following commands
 
