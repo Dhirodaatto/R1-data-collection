@@ -17,11 +17,9 @@ def mean(test_list):
     return mean
 
 def stddev(test_list):
-    variance = sum([((x - mean) ** 2) for x in test_list]) / len(test_list)
+    variance = sum([((x - mean(test_list)) ** 2) for x in test_list]) / len(test_list)
     res = variance ** 0.5
     return res
-
-
 
 more_readings = True
 
@@ -88,8 +86,8 @@ while more_readings:
     
     ws.cell(row = rowset, column = 4).value = mean(current_set_dspeed)
     ws.cell(row = rowset, column = 5).value = mean(current_set_uspeed)
-    ws.cell(row = rowset, column = 6).value = mean(current_set_dspeed)
-    ws.cell(row = rowset, column = 7).value = mean(current_set_uspeed)
+    ws.cell(row = rowset, column = 6).value = stddev(current_set_dspeed)
+    ws.cell(row = rowset, column = 7).value = stddev(current_set_uspeed)
     
     print(f'Reading {r} done')
     test = input("Press Enter to continue and QQ to finish data collection  ")
