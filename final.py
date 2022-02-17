@@ -32,7 +32,8 @@ print()
 
 name = input("Please enter your Name here : ")
 sheetname = input("Please enter the name of the sheet you wish to write to : ")
-filepath = input("Please enter your filepath here : ")
+filepath = input("Please enter your filepath: ")
+# filepath = "C:/Users/dhiro/Desktop"
 
 if (os.path.exists(f'{filepath}/R1_reading_data_{name}.xlsx')):
     workbook = opx.load_workbook(f'{filepath}/R1_reading_data_{name}.xlsx')
@@ -73,14 +74,16 @@ while more_readings:
     
     for r_num in range(0, reading_set):
         dateobj = datetime.now()
-        dspeed, uspeed = get_reading()
+        try:
+            dspeed, uspeed = get_reading()
+            current_set_uspeed.append(uspeed)
+            current_set_dspeed.append(dspeed)
+        except:
+            dspeed, uspeed = 0,0
         ws.cell(row = rowset + r_num, column = 1).value = dateobj.date().strftime("%b %d %Y ") + dateobj.time().strftime("%H:%M:%S.%f")
         
         ws.cell(row = rowset + r_num, column = 2).value = dspeed
         ws.cell(row = rowset + r_num, column = 3).value = uspeed
-        
-        current_set_uspeed.append(uspeed)
-        current_set_dspeed.append(dspeed)
         
         print(f'Set Reading number {r_num} done for your current reading -> {r}')
     
@@ -88,6 +91,8 @@ while more_readings:
     ws.cell(row = rowset, column = 5).value = mean(current_set_uspeed)
     ws.cell(row = rowset, column = 6).value = stddev(current_set_dspeed)
     ws.cell(row = rowset, column = 7).value = stddev(current_set_uspeed)
+    
+    workbook.save(filename = f'{filepath}/R1_reading_data_{name}.xlsx')
     
     print(f'Reading {r} done')
     test = input("Press Enter to continue and QQ to finish data collection  ")
@@ -98,6 +103,4 @@ while more_readings:
     r = r + 1
 
 # plt.plot([i for i in range(5)], dplot)
-# plt.show()
-
-workbook.save(filename = f'{filepath}/R1_reading_data_{name}.xlsx')    
+# plt.show()  
