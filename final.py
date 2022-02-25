@@ -33,7 +33,6 @@ print()
 name = input("Please enter your Name here : ")
 sheetname = input("Please enter the name of the sheet you wish to write to : ")
 filepath = input("Please enter your filepath: ")
-# filepath = "C:/Users/dhiro/Desktop"
 
 if (os.path.exists(f'{filepath}/R1_reading_data_{name}.xlsx')):
     workbook = opx.load_workbook(f'{filepath}/R1_reading_data_{name}.xlsx')
